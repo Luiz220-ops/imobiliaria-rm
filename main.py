@@ -46,3 +46,19 @@ class Casa(Imovel):
         if self.tem_garagem:
             valor += 300.00
         return valor
+
+class Estudio(Imovel):
+    """Subclasse para gerenciar as regras específicas de Estúdios."""
+    def __init__(self, vagas_estacionamento):
+        super().__init__("Estúdio", 1200.00)
+        self.vagas = vagas_estacionamento
+
+    def calcular_aluguel(self):
+        valor = self.valor_base
+        # Regra de vagas para Estúdio
+        if self.vagas > 0:
+            if self.vagas <= 2:
+                valor += 250.00
+            else:
+                valor += 250.00 + ((self.vagas - 2) * 60.00)
+        return valor
