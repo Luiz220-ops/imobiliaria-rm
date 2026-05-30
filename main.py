@@ -86,7 +86,7 @@ class Orcamento:
         print(f"Total no Primeiro Mês: R$ {(aluguel_mensal + valor_parcela):.2f}")
         print("="*40)
 
-def gerar_csv(self, nome_arquivo="orcamento_12_meses.csv"):
+    def gerar_csv(self, nome_arquivo="orcamento_12_meses.csv"):
         aluguel_mensal = self.imovel.calcular_aluguel()
         valor_parcela = self.valor_contrato_total / self.parcelas_contrato
 
