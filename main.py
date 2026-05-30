@@ -139,3 +139,6 @@ def menu():
             orcamento.gerar_csv()
     else:
         print("Opção inválida.")
+
+if __name__ == "__main__":
+    menu()
