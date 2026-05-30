@@ -102,3 +102,40 @@ def gerar_csv(self, nome_arquivo="orcamento_12_meses.csv"):
                 writer.writerow([mes, f"{aluguel_mensal:.2f}", f"{p_contrato:.2f}", f"{total_mensal:.2f}"])
         
         print(f"\n[Sucesso] Arquivo '{nome_arquivo}' gerado com o cronograma de 12 meses!")
+
+def menu():
+    print("--- Sistema de Orçamentos Imobiliária R.M ---")
+    print("1 - Apartamento")
+    print("2 - Casa")
+    print("3 - Estúdio")
+    opcao = input("Escolha o tipo de imóvel: ")
+
+    imovel = None
+
+    if opcao == "1":
+        quartos = int(input("Quantidade de quartos (1 ou 2): "))
+        garagem = input("Deseja vaga de garagem? (s/n): ").strip().lower() == 's'
+        criancas = input("Possui crianças residindo? (s/n): ").strip().lower() == 's'
+        imovel = Apartamento(quartos, garagem, criancas)
+
+    elif opcao == "2":
+        quartos = int(input("Quantidade de quartos (1 ou 2): "))
+        garagem = input("Deseja vaga de garagem? (s/n): ").strip().lower() == 's'
+        imovel = Casa(quartos, garagem)
+
+    elif opcao == "3":
+        vagas = int(input("Quantidade de vagas de estacionamento desejadas: "))
+        imovel = Estudio(vagas)
+
+    if imovel:
+        print("\nConfiguração do Contrato:")
+        parcelas = int(input("Em quantas vezes deseja parcelar a taxa de contrato (1 a 5): "))
+        
+        orcamento = Orcamento(imovel, parcelas)
+        orcamento.exibir_resumo()
+        
+        exportar = input("\nDeseja gerar o arquivo CSV com as 12 parcelas? (s/n): ").strip().lower()
+        if exportar == 's':
+            orcamento.gerar_csv()
+    else:
+        print("Opção inválida.")
