@@ -85,3 +85,20 @@ class Orcamento:
         print("-"*40)
         print(f"Total no Primeiro Mês: R$ {(aluguel_mensal + valor_parcela):.2f}")
         print("="*40)
+
+def gerar_csv(self, nome_arquivo="orcamento_12_meses.csv"):
+        aluguel_mensal = self.imovel.calcular_aluguel()
+        valor_parcela = self.valor_contrato_total / self.parcelas_contrato
+
+        with open(nome_arquivo, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            # Cabeçalho do CSV
+            writer.writerow(["Mês", "Aluguel Mensal (R$)", "Parcela Contrato (R$)", "Total Mensal (R$)"])
+            
+            # Cronograma de 12 parcelas (meses)
+            for mes in range(1, 13):
+                p_contrato = valor_parcela if mes <= self.parcelas_contrato else 0.0
+                total_mensal = aluguel_mensal + p_contrato
+                writer.writerow([mes, f"{aluguel_mensal:.2f}", f"{p_contrato:.2f}", f"{total_mensal:.2f}"])
+        
+        print(f"\n[Sucesso] Arquivo '{nome_arquivo}' gerado com o cronograma de 12 meses!")
