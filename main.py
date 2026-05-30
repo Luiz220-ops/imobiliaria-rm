@@ -62,3 +62,26 @@ class Estudio(Imovel):
             else:
                 valor += 250.00 + ((self.vagas - 2) * 60.00)
         return valor
+
+class Orcamento:
+    """Classe responsável por consolidar os valores e gerar o relatório/CSV."""
+    def __init__(self, imovel, parcelas_contrato):
+        self.imovel = imovel
+        self.valor_contrato_total = 2000.00
+        # Garante que o parcelamento esteja entre 1 e 5 vezes
+        self.parcelas_contrato = max(1, min(5, parcelas_contrato))
+
+    def exibir_resumo(self):
+        aluguel_mensal = self.imovel.calcular_aluguel()
+        valor_parcela = self.valor_contrato_total / self.parcelas_contrato
+        
+        print("\n" + "="*40)
+        print(f"     ORÇAMENTO IMOBILIÁRIA R.M")
+        print("="*40)
+        print(f"Tipo de Imóvel: {self.imovel.tipo}")
+        print(f"Valor do Aluguel Mensal: R$ {aluguel_mensal:.2f}")
+        print(f"Taxa de Contrato Total: R$ {self.valor_contrato_total:.2f}")
+        print(f"Parcelamento da Taxa: {self.parcelas_contrato}x de R$ {valor_parcela:.2f}")
+        print("-"*40)
+        print(f"Total no Primeiro Mês: R$ {(aluguel_mensal + valor_parcela):.2f}")
+        print("="*40)
