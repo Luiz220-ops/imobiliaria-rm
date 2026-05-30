@@ -29,3 +29,20 @@ class Apartamento(Imovel):
         if not self.tem_criancas:
             valor *= 0.95
         return valor
+        
+class Casa(Imovel):
+    """Subclasse para gerenciar as regras específicas de Casas."""
+    def __init__(self, quartos, tem_garagem):
+        super().__init__("Casa", 900.00)  # Valor base para 1 quarto
+        self.quartos = quartos
+        self.tem_garagem = tem_garagem
+
+    def calcular_aluguel(self):
+        valor = self.valor_base
+        # Adicional por quarto extra
+        if self.quartos == 2:
+            valor += 250.00
+        # Adicional de vaga de garagem
+        if self.tem_garagem:
+            valor += 300.00
+        return valor
